@@ -1,0 +1,7 @@
+tap 'caskroom/cask'
+tap 'homebrew/bundle'
+brew 'git'
+brew 'peco'
+brew 'node'
+brew 'zsh'
+brew 'caskroom/cask/brew-cask'
