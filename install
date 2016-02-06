@@ -6,4 +6,9 @@ brew tap Homebrew/bundle
 
 brew bundle --file $HOME/.inkaku/Brewfile
 
+echo "/usr/local/bin/zsh" | sudo tee -a /etc/shells
+
 chsh -s /usr/local/bin/zsh
+
+echo 'export PATH=$PATH:$HOME/.inkaku/bin/' >> $HOME/.zshrc
+echo '. $HOME/.inkaku/inkaku.zsh' >> $HOME/.zshrc
