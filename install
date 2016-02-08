@@ -10,5 +10,5 @@ echo "/usr/local/bin/zsh" | sudo tee -a /etc/shells
 
 chsh -s /usr/local/bin/zsh
 
-echo 'export PATH=$PATH:$HOME/.inkaku/bin/' >> $HOME/.zshrc
-echo '. $HOME/.inkaku/inkaku.zsh' >> $HOME/.zshrc
+echo 'export PATH=$PATH:$HOME/.inkaku/bin' >> $HOME/.zshrc
+echo 'source $HOME/.inkaku/inkaku.zsh' >> $HOME/.zshrc
