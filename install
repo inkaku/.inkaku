@@ -4,7 +4,7 @@ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/
 
 brew tap Homebrew/bundle
 
-brew bundle --file $HOME/.inkaku/Brewfile
+brew bundle --file=$HOME/.inkaku/Brewfile
 
 echo "/usr/local/bin/zsh" | sudo tee -a /etc/shells
 
