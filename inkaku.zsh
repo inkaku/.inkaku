@@ -131,3 +131,8 @@ zle -N peco_select_history
 bindkey '^r' peco_select_history
 
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+for f in `ls $HOME/.inkaku/zsh/*.zsh`; do
+  . $f
+done
+
