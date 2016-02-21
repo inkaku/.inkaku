@@ -130,9 +130,18 @@ function peco_select_history() {
 zle -N peco_select_history
 bindkey '^r' peco_select_history
 
+function peco_select_ssh_host() {
+  local host
+  host=$(grep -iE '^host' ~/.ssh/config | awk '{print $2}' | peco)
+  if [ "$host" != '' ]; then
+    ssh $@ $host
+  fi
+}
+
+alias sshp=peco_select_ssh_host
+
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 for f in `ls $HOME/.inkaku/zsh/*.zsh`; do
   . $f
 done
-
