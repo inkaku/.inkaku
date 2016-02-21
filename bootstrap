@@ -2,6 +2,6 @@
 
 xcode-select --install
 
-git clone https://github.com/inkaku/.inkaku.git $HOME
+git clone https://github.com/inkaku/.inkaku.git $HOME/.inkaku
 
 bash $HOME/.inkaku/install
