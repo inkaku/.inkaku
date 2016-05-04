@@ -58,9 +58,6 @@ setopt extended_glob
 # Unicode の正規化に関する問題を吸収
 setopt combining_chars
 
-# コマンド名が間違っていた場合に修正
-setopt correct
-
 #  _______  _       _________ _______  _______
 # (  ___  )( \      \__   __/(  ___  )(  ____ \
 # | (   ) || (         ) (   | (   ) || (    \/
@@ -92,6 +89,7 @@ alias -g grepc='grep --colour=always'
 
 # suffix aliases
 alias -s js=node
+alias -s es=babel-node
 alias -s rb=ruby
 alias -s py=python3
 alias -s txt=vim
@@ -145,6 +143,10 @@ source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 for f in `ls $HOME/.inkaku/zsh/*.zsh`; do
   . $f
 done
+
+if [ -d ${HOME}/.inkaku/${USER} ]; then
+  . ${HOME}/.inkaku/${USER}/user.zsh
+fi
 
 if [ -d ${HOME}/node_modules/.bin ]; then
     export PATH=${PATH}:${HOME}/node_modules/.bin
