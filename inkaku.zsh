@@ -140,14 +140,16 @@ alias sshp=peco_select_ssh_host
 
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
+export PATH=$PATH:$HOME/.inkaku/bin
+
 for f in `ls $HOME/.inkaku/zsh/*.zsh`; do
   . $f
 done
 
-if [ -d ${HOME}/.inkaku/${USER} ]; then
-  . ${HOME}/.inkaku/${USER}/user.zsh
-fi
-
 if [ -d ${HOME}/node_modules/.bin ]; then
     export PATH=${PATH}:${HOME}/node_modules/.bin
+fi
+
+if [ -d ${HOME}/.inkaku/${USER} ]; then
+  . ${HOME}/.inkaku/${USER}/user.zsh
 fi
