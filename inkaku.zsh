@@ -151,5 +151,5 @@ if [ -d ${HOME}/node_modules/.bin ]; then
 fi
 
 if [ -d ${HOME}/.inkaku/${USER} ]; then
-  . ${HOME}/.inkaku/${USER}/user.zsh
+  . ${HOME}/.inkaku/${USER}/.zshrc
 fi
