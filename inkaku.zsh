@@ -142,13 +142,9 @@ source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 export PATH=$PATH:$HOME/.inkaku/bin
 
-for f in `ls $HOME/.inkaku/zsh/*.zsh`; do
+for f in `find ~/.inkaku/zsh -name '.zshrc'`; do
   . $f
 done
-
-if [ -d ${HOME}/node_modules/.bin ]; then
-    export PATH=${PATH}:${HOME}/node_modules/.bin
-fi
 
 if [ -d ${HOME}/.inkaku/${USER} ]; then
   . ${HOME}/.inkaku/${USER}/.zshrc

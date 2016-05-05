@@ -21,4 +21,3 @@ chsh -s /usr/local/bin/zsh
 
 echo 'source $HOME/.inkaku/inkaku.zsh' >> $HOME/.zshrc
 mkdir -p $HOME/.inkaku/zsh
-touch $HOME/.inkaku/zsh/0.zsh
