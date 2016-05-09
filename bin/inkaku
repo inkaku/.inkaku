@@ -1,11 +1,16 @@
 #!/bin/sh
 
 if [ $1 = "install" ]; then
-  echo $2
   if [ -d ${HOME}/.inkaku/$2 ]; then
-    brew bundle --file=${HOME}/.inkaku/$2/Brewfile
-    zsh ${HOME}/.inkaku/$2/install
-    mkdir -p ${HOME}/.inkaku/zsh/$2/
-    ln -sf ~/.inkaku/$2/.zshrc ~/.inkaku/zsh/$2/.zshrc
+    if [ -r ${HOME}/.inkaku/$2/Brewfile ]; then
+      brew bundle --file=${HOME}/.inkaku/$2/Brewfile
+    fi
+    if [ -x ${HOME}/.inkaku/$2/install ]; then
+      zsh ${HOME}/.inkaku/$2/install
+    fi
+    if [ -e ~/.inkaku/$2/.zshrc ]; then
+      mkdir -p ${HOME}/.inkaku/zsh/$2/
+      ln -sf ~/.inkaku/$2/.zshrc ~/.inkaku/zsh/$2/.zshrc
+    fi
   fi
 fi
