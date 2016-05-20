@@ -1,2 +1,3 @@
 cask 'java'
 brew 'sbt'
+brew 'scala'
