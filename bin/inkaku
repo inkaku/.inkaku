@@ -5,7 +5,7 @@ if [ $1 = "install" ]; then
     if [ -r ${HOME}/.inkaku/$2/Brewfile ]; then
       brew bundle --file=${HOME}/.inkaku/$2/Brewfile
     fi
-    if [ -x ${HOME}/.inkaku/$2/install ]; then
+    if [ -f ${HOME}/.inkaku/$2/install ]; then
       zsh ${HOME}/.inkaku/$2/install
     fi
     if [ -e ~/.inkaku/$2/.zshrc ]; then
