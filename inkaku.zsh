@@ -25,9 +25,6 @@ function peco_select_history() {
   zle clear-screen
 }
 
-zle -N peco_select_history
-bindkey '^r' peco_select_history
-
 function peco_select_ssh_host() {
   local host
   host=$(grep -iE '^host' ~/.ssh/config | awk '{print $2}' | peco)
@@ -35,8 +32,6 @@ function peco_select_ssh_host() {
     ssh $@ $host
   fi
 }
-
-alias sshp=peco_select_ssh_host
 
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 

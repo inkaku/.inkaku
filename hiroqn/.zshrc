@@ -99,3 +99,13 @@ alias -s txt=vim
 alias zshrc="vim ~/.zshrc"
 alias vimrc="vim ~/.vimrc"
 alias sshconfig="vim ~/.ssh/config"
+
+alias sshp=peco_select_ssh_host
+
+zle -N peco_select_history
+bindkey '^r' peco_select_history
+
+eval "$(direnv hook zsh)"
+
+alias ghc="stack ghc"
+alias ghci="stack ghci"

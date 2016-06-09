@@ -18,6 +18,10 @@ if [ -f ${HOME}/.inkaku/${USER}/Brewfile ]; then
   brew bundle --file=${HOME}/.inkaku/${USER}/Brewfile
 fi
 
+if [ -f ${HOME}/.inkaku/${USER}/install ]; then
+  zsh ${HOME}/.inkaku/${USER}/install
+fi
+
 echo "/usr/local/bin/zsh" | sudo tee -a /etc/shells
 
 chsh -s /usr/local/bin/zsh
