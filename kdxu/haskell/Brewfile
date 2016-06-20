@@ -1,0 +1,3 @@
+install ghc || true
+install haskell-platform || true
+install haskell-stack || true
