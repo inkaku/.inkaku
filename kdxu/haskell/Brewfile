@@ -1,0 +1,3 @@
+brew 'ghc'
+brew 'haskell-platform'
+brew 'haskell-stack'
