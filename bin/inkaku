@@ -1,6 +1,6 @@
-#!/bin/sh
+#!/bin/zsh
 
-if [ $1 = "install" ]; then
+if [ $1 = "install" ] || [ $1 = "i" ]; then
   if [ -d ${HOME}/.inkaku/$2 ]; then
     if [ -r ${HOME}/.inkaku/$2/Brewfile ]; then
       brew bundle --file=${HOME}/.inkaku/$2/Brewfile
@@ -9,8 +9,17 @@ if [ $1 = "install" ]; then
       zsh ${HOME}/.inkaku/$2/install
     fi
     if [ -e ~/.inkaku/$2/.zshrc ]; then
-      mkdir -p ${HOME}/.inkaku/zsh/$2/
-      ln -sf ~/.inkaku/$2/.zshrc ~/.inkaku/zsh/$2/.zshrc
+      if [ ! $(grep -w $2 ~/.inkaku/${USER}/.zshlist) ]; then
+        echo $2 >> ~/.inkaku/${USER}/.zshlist
+      fi
     fi
+  fi
+fi
+
+if [ $1 = "init" ]; then
+  if [ -d ~/.inkaku/${USER} ]; then
+    mkdir -p ~/.inkaku/${USER}
+    echo "${USER}" > ~/.inkaku/${USER}/.zshlist
+    echo "" >> ~/.inkaku/${USER}/.zshrc
   fi
 fi
