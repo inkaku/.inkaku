@@ -10,7 +10,7 @@ if [ $1 = "install" ] || [ $1 = "i" ]; then
     fi
     if [ -e ~/.inkaku/$2/.zshrc ]; then
       if [ ! $(grep -w $2 ~/.inkaku/${USER}/module.list) ]; then
-        echo $2 >> ~/.inkaku/${USER}/.zshlist
+        echo $2 >> ~/.inkaku/${USER}/module.list
       fi
     fi
   fi
@@ -19,7 +19,7 @@ fi
 if [ $1 = "init" ]; then
   if [ ! -d ~/.inkaku/${USER} ]; then
     mkdir -p ~/.inkaku/${USER}
-    echo "${USER}" > ~/.inkaku/${USER}/.zshlist
+    echo "${USER}" > ~/.inkaku/${USER}/module.list
     touch ~/.inkaku/${USER}/.zshrc
   fi
 fi
