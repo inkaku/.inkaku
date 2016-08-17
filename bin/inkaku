@@ -9,7 +9,7 @@ if [ $1 = "install" ] || [ $1 = "i" ]; then
       zsh ${HOME}/.inkaku/$2/install
     fi
     if [ -e ~/.inkaku/$2/.zshrc ]; then
-      if [ ! $(grep -w $2 ~/.inkaku/${USER}/.zshlist) ]; then
+      if [ ! $(grep -w $2 ~/.inkaku/${USER}/module.list) ]; then
         echo $2 >> ~/.inkaku/${USER}/.zshlist
       fi
     fi
@@ -17,9 +17,24 @@ if [ $1 = "install" ] || [ $1 = "i" ]; then
 fi
 
 if [ $1 = "init" ]; then
-  if [ -d ~/.inkaku/${USER} ]; then
+  if [ ! -d ~/.inkaku/${USER} ]; then
     mkdir -p ~/.inkaku/${USER}
     echo "${USER}" > ~/.inkaku/${USER}/.zshlist
-    echo "" >> ~/.inkaku/${USER}/.zshrc
+    touch ~/.inkaku/${USER}/.zshrc
+  fi
+fi
+
+if [ $1 = "save" ]; then
+  if [ -d ~/.inkaku/${USER} ]; then
+    brew bundle --file=- dump \
+  | cat - ~/.inkaku/Brewfile \
+      $(
+        for path in $(tail -r ~/.inkaku/${USER}/module.list); do
+          if [ -r "${HOME}/.inkaku/$path/Brewfile" ]; then
+            echo "${HOME}/.inkaku/$path/Brewfile"
+          fi
+        done
+      ) \
+  | sort | uniq -u > ~/.inkaku/${USER}/Brewfile
   fi
 fi
