@@ -1,7 +1,20 @@
 #!/bin/zsh
 
+if [ ! $1  ]; then
+  echo '
+  #  #  #
+ #       #
+ #  ##   #
+#    #    #
+ #   #   #
+ #  ###  #
+  #     #
+  '
+  exit;
+fi
+
 if [ $1 = "install" ] || [ $1 = "i" ]; then
-  if [ -d ${HOME}/.inkaku/$2 ]; then
+  if [ $2 ] && [ -d ${HOME}/.inkaku/$2 ]; then
     if [ -r ${HOME}/.inkaku/$2/Brewfile ]; then
       brew bundle --file=${HOME}/.inkaku/$2/Brewfile
     fi
@@ -14,6 +27,7 @@ if [ $1 = "install" ] || [ $1 = "i" ]; then
       fi
     fi
   fi
+  exit;
 fi
 
 if [ $1 = "init" ]; then
@@ -22,6 +36,7 @@ if [ $1 = "init" ]; then
     echo "${USER}" > ~/.inkaku/${USER}/module.list
     touch ~/.inkaku/${USER}/.zshrc
   fi
+  exit;
 fi
 
 if [ $1 = "save" ]; then
@@ -37,4 +52,5 @@ if [ $1 = "save" ]; then
       ) \
   | sort | uniq -u > ~/.inkaku/${USER}/Brewfile
   fi
+  exit;
 fi
