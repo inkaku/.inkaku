@@ -4,15 +4,6 @@ HISTFILE=~/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
 
-# _______  _______ __________________ _______  _
-#(  ___  )(  ____ )\__   __/\__   __/(  ___  )( (    /|
-#| (   ) || (    )|   ) (      ) (   | (   ) ||  \  ( |
-#| |   | || (____)|   | |      | |   | |   | ||   \ | |
-#| |   | ||  _____)   | |      | |   | |   | || (\ \) |
-#| |   | || (         | |      | |   | |   | || | \   |
-#| (___) || )         | |   ___) (___| (___) || )  \  |
-#(_______)|/          )_(   \_______/(_______)|/    )_)
-
 # 日本語ファイル名を表示可能にする
 setopt print_eight_bit
 
@@ -78,14 +69,7 @@ alias la='ls -aA'
 alias ll='ls -lh'
 alias lal="ls -a -lA"
 
-alias cp='cp -i'
-alias mv='mv -i'
-
-alias mkdir='mkdir -p'
-
 alias grep='grep --colour=auto'
-
-alias p='popd'
 
 # sudo の後のコマンドでエイリアスを有効にする
 alias sudo='sudo '
@@ -103,13 +87,6 @@ alias -s txt=vim
 alias zshrc="vim ~/.zshrc"
 alias vimrc="vim ~/.vimrc"
 alias sshc="vim ~/.ssh/config"
-
-alias sshp=peco_select_ssh_host
-
-zle -N peco_select_history
-bindkey '^r' peco_select_history
-
-eval "$(direnv hook zsh)"
 
 alias ghc="stack ghc"
 alias ghci="stack ghci"
