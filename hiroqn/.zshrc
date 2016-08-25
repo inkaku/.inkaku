@@ -1,5 +1,9 @@
 echo "{i}"
 
+HISTFILE=~/.zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
+
 # _______  _______ __________________ _______  _
 #(  ___  )(  ____ )\__   __/\__   __/(  ___  )( (    /|
 #| (   ) || (    )|   ) (      ) (   | (   ) ||  \  ( |
@@ -98,7 +102,7 @@ alias -s txt=vim
 
 alias zshrc="vim ~/.zshrc"
 alias vimrc="vim ~/.vimrc"
-alias sshconfig="vim ~/.ssh/config"
+alias sshc="vim ~/.ssh/config"
 
 alias sshp=peco_select_ssh_host
 
