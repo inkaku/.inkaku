@@ -33,8 +33,12 @@ fi
 if [ $1 = "init" ]; then
   if [ ! -d ~/.inkaku/${USER} ]; then
     mkdir -p ~/.inkaku/${USER}
-    echo "${USER}" > ~/.inkaku/${USER}/module.list
-    touch ~/.inkaku/${USER}/.zshrc
+    if [! -f ~/.inkaku/${USER}/module.list ]; then
+      echo "${USER}" > ~/.inkaku/${USER}/module.list
+    fi
+    if [! -f ~/.inkaku/${USER}/.zshrc ]; then
+      touch ~/.inkaku/${USER}/.zshrc
+    fi
   fi
   exit;
 fi
@@ -53,4 +57,12 @@ if [ $1 = "save" ]; then
   | sort | uniq -u > ~/.inkaku/${USER}/Brewfile
   fi
   exit;
+fi
+
+if [ $1 = "new" ] && [ $2 ]; then
+  mkdir -p ~/.inkaku/${USER}
+  mkdir -p ~/.inkaku/${USER}/$2
+  touch ~/.inkaku/${USER}/$2/.zshrc
+  touch ~/.inkaku/${USER}/$2/Brewfile
+  echo "#!/bin/sh" > ~/.inkaku/${USER}/$2/install
 fi

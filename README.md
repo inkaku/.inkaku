@@ -1,26 +1,44 @@
 # .inkaku
 {i}
 
+# version
+🍒
+
 ## install guide
 
+### clean mac
 if you're clean mac,
 
 install Xcode or `xcode-select --install`
 
-and
+### install
 
 run
 
 ```sh
-git clone https://github.com/inkaku/.inkaku.git $HOME/.inkaku
+git clone https://github.com/inkaku/.inkaku.git ~/.inkaku
 
-bash $HOME/.inkaku/install
+bash ~/.inkaku/install
 ```
 
-## shared env
+## module
 
-you can share setup env module cut
+### install
+
+you can install
 
 like
 
 `inkaku install hiroqn/node`
+
+### new
+
+if you want to new
+
+`inkaku new node` and get `${USER}/node` ,
+ Write install shell and Brewfile and .zshrc !!!
+
+
+## save
+
+`inkaku save` command write `${USER}/Brewfile`
