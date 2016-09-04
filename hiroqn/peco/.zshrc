@@ -1,6 +1,6 @@
 function figlet_peco() {
   font=$(find /usr/local/share/figlet/fonts -name '*.flf' | awk -F / '{print $NF}' | peco)
-  figlet -f $(find /usr/local/share/figlet/fonts -name $font) $@
+  figlet -f "$(find /usr/local/share/figlet/fonts -name $font | head -n 1)" $@
 }
 
 function history_peco() {
