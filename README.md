@@ -16,9 +16,7 @@ install Xcode or `xcode-select --install`
 run
 
 ```sh
-git clone https://github.com/inkaku/.inkaku.git ~/.inkaku
-
-bash ~/.inkaku/install
+git clone https://github.com/inkaku/.inkaku.git ~/.inkaku && bash ~/.inkaku/install
 ```
 
 ## module
