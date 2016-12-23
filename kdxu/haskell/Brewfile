@@ -1,3 +1,2 @@
-brew 'ghc'
-brew 'haskell-platform'
+brew 'cabal-install'
 brew 'haskell-stack'
