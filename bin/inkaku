@@ -14,16 +14,20 @@ if [ ! $1  ]; then
 fi
 
 if [ $1 = "install" ] || [ $1 = "i" ]; then
-  if [ $2 ] && [ -d ${HOME}/.inkaku/$2 ]; then
-    if [ -r ${HOME}/.inkaku/$2/Brewfile ]; then
-      brew bundle --file=${HOME}/.inkaku/$2/Brewfile
+  if [ $2 ] && [ -d ${HOME}/$2 ]; then
+    module_dir=${HOME}/$2
+    if [ -r $module_dir/Brewfile ]; then
+      brew bundle --file=$module_dir/Brewfile
     fi
-    if [ -f ${HOME}/.inkaku/$2/install ]; then
-      zsh ${HOME}/.inkaku/$2/install
+    if [ -f $module_dir/install ]; then
+      read REPLY\?"Do you want exec install sh? (y/n)"
+      if [ $REPLY = 'y' ]; then
+        zsh $module_dir/install
+      fi
     fi
-    if [ -e ~/.inkaku/$2/.zshrc ]; then
-      if [ ! $(grep -w $2 ~/.inkaku/${USER}/module.list) ]; then
-        echo $2 >> ~/.inkaku/${USER}/module.list
+    if [ -e $module_dir/.zshrc ]; then
+      if [ ! $(grep -w $2 ~/.list) ]; then
+        echo $2 >> ~/.list
       fi
     fi
   fi
@@ -31,38 +35,24 @@ if [ $1 = "install" ] || [ $1 = "i" ]; then
 fi
 
 if [ $1 = "init" ]; then
-  if [ ! -d ~/.inkaku/${USER} ]; then
-    mkdir -p ~/.inkaku/${USER}
-    if [! -f ~/.inkaku/${USER}/module.list ]; then
-      echo "${USER}" > ~/.inkaku/${USER}/module.list
-    fi
-    if [! -f ~/.inkaku/${USER}/.zshrc ]; then
-      touch ~/.inkaku/${USER}/.zshrc
-    fi
+  if [ ! -f ~/.list ]; then
+    touch .list
   fi
   exit;
 fi
 
 if [ $1 = "save" ]; then
-  if [ -d ~/.inkaku/${USER} ]; then
+  if [ -f ~/.list ]; then
     brew bundle --file=- dump \
   | cat - ~/.inkaku/Brewfile \
       $(
-        for path in $(tail -r ~/.inkaku/${USER}/module.list); do
-          if [ -r "${HOME}/.inkaku/$path/Brewfile" ]; then
-            echo "${HOME}/.inkaku/$path/Brewfile"
+        for path in $(tail -r ~/.list); do
+          if [ -r "${HOME}/$path/Brewfile" ]; then
+            echo "${HOME}/$path/Brewfile"
           fi
         done
       ) \
-  | sort | uniq -u > ~/.inkaku/${USER}/Brewfile
+  | sort | uniq -u > ~/Brewfile
   fi
   exit;
-fi
-
-if [ $1 = "new" ] && [ $2 ]; then
-  mkdir -p ~/.inkaku/${USER}
-  mkdir -p ~/.inkaku/${USER}/$2
-  touch ~/.inkaku/${USER}/$2/.zshrc
-  touch ~/.inkaku/${USER}/$2/Brewfile
-  echo "#!/bin/sh" > ~/.inkaku/${USER}/$2/install
 fi
