@@ -26,8 +26,8 @@ if [ $1 = "install" ] || [ $1 = "i" ]; then
       fi
     fi
     if [ -e $module_dir/.zshrc ]; then
-      if [ ! $(grep -w $2 ~/.list) ]; then
-        echo $2 >> ~/.list
+      if [ ! $(grep -w $2 ~/$I_LIST_PATH) ]; then
+        echo $2 >> ~/$I_LIST_PATH
       fi
     fi
   fi
@@ -35,18 +35,18 @@ if [ $1 = "install" ] || [ $1 = "i" ]; then
 fi
 
 if [ $1 = "init" ]; then
-  if [ ! -f ~/.list ]; then
-    touch .list
+  if [ ! -f ~/$I_LIST_PATH ]; then
+    touch $I_LIST_PATH
   fi
   exit;
 fi
 
 if [ $1 = "save" ]; then
-  if [ -f ~/.list ]; then
+  if [ -f ~/$I_LIST_PATH ]; then
     brew bundle --file=- dump \
   | cat - ~/.inkaku/Brewfile \
       $(
-        for path in $(tail -r ~/.list); do
+        for path in $(tail -r ~/$I_LIST_PATH); do
           if [ -r "${HOME}/$path/Brewfile" ]; then
             echo "${HOME}/$path/Brewfile"
           fi
