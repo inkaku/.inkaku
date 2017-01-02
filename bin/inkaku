@@ -53,6 +53,7 @@ if [ $1 = "save" ]; then
         done
       ) \
   | sort | uniq -u > ~/Brewfile
+  cat Brewfile
   fi
   exit;
 fi
