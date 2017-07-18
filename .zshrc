@@ -1,7 +1,7 @@
 export PATH=$PATH:$HOME/.inkaku/bin
-
-source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
-source <(cat $(tail -r "$HOME/.inkaku/$USER/module.list" | awk -v home="$HOME" '{print home"/.inkaku/"$0"/.zshrc"}') 2> /dev/null)
+if [ ! $I_LIST_PATH ];then
+  export I_LIST_PATH=".list"
+fi
+source <(cat $(tail -r "$HOME/$I_LIST_PATH" | awk '{if ($0) print $0"/.zshrc"}') 2> /dev/null)
 
 alias i='inkaku'

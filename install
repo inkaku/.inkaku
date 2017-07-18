@@ -15,16 +15,10 @@ brew tap Homebrew/bundle
 brew bundle --file=$HOME/.inkaku/Brewfile
 
 if [ ! $(grep -w "/usr/local/bin/zsh" /etc/shells) ]; then
-  echo "/usr/local/bin/zsh" | sudo tee -a /etc/shells
+  echo "/usr/local/bin/zsh" | sudo tee -a /etc/shells && chsh -s /usr/local/bin/zsh
 fi
 
-chsh -s /usr/local/bin/zsh
-
 chmod +x ~/.inkaku/bin/inkaku
-
-~/.inkaku/bin/inkaku init
-
-~/.inkaku/bin/inkaku install ${USER}
 
 if [ ! $(grep -w 'source ~/.inkaku/.zshrc' $HOME/.zshrc) ]; then
   echo 'source ~/.inkaku/.zshrc' >> $HOME/.zshrc

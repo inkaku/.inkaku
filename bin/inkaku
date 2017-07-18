@@ -9,21 +9,26 @@ if [ ! $1  ]; then
  #   #   #
  #  ###  #
   #     #
+  Version 🍎
   '
   exit;
 fi
 
 if [ $1 = "install" ] || [ $1 = "i" ]; then
-  if [ $2 ] && [ -d ${HOME}/.inkaku/$2 ]; then
-    if [ -r ${HOME}/.inkaku/$2/Brewfile ]; then
-      brew bundle --file=${HOME}/.inkaku/$2/Brewfile
+  if [ $2 ] && [ -d ${HOME}/$2 ]; then
+    module_dir=${HOME}/$2
+    if [ -r $module_dir/Brewfile ]; then
+      brew bundle --file=$module_dir/Brewfile
     fi
-    if [ -f ${HOME}/.inkaku/$2/install ]; then
-      zsh ${HOME}/.inkaku/$2/install
+    if [ -f $module_dir/install ]; then
+      read REPLY\?"Do you want exec install sh? (y/n)"
+      if [ $REPLY = 'y' ]; then
+        zsh $module_dir/install
+      fi
     fi
-    if [ -e ~/.inkaku/$2/.zshrc ]; then
-      if [ ! $(grep -w $2 ~/.inkaku/${USER}/module.list) ]; then
-        echo $2 >> ~/.inkaku/${USER}/module.list
+    if [ -e $module_dir/.zshrc ]; then
+      if [ ! $(grep -w $2 ~/$I_LIST_PATH) ]; then
+        echo $module_dir >> ~/$I_LIST_PATH
       fi
     fi
   fi
@@ -31,38 +36,36 @@ if [ $1 = "install" ] || [ $1 = "i" ]; then
 fi
 
 if [ $1 = "init" ]; then
-  if [ ! -d ~/.inkaku/${USER} ]; then
-    mkdir -p ~/.inkaku/${USER}
-    if [! -f ~/.inkaku/${USER}/module.list ]; then
-      echo "${USER}" > ~/.inkaku/${USER}/module.list
-    fi
-    if [! -f ~/.inkaku/${USER}/.zshrc ]; then
-      touch ~/.inkaku/${USER}/.zshrc
-    fi
+  if [ ! -f ~/$I_LIST_PATH ]; then
+    touch $I_LIST_PATH
   fi
   exit;
 fi
 
-if [ $1 = "save" ]; then
-  if [ -d ~/.inkaku/${USER} ]; then
-    brew bundle --file=- dump \
-  | cat - ~/.inkaku/Brewfile \
+get_installed_formula () {
+  list=$(cat ~/.inkaku/Brewfile \
       $(
-        for path in $(tail -r ~/.inkaku/${USER}/module.list); do
-          if [ -r "${HOME}/.inkaku/$path/Brewfile" ]; then
-            echo "${HOME}/.inkaku/$path/Brewfile"
+        for path in $(tail -r ~/$I_LIST_PATH); do
+          if [ -r "$path/Brewfile" ]; then
+            echo "$path/Brewfile"
           fi
         done
       ) \
-  | sort | uniq -u > ~/.inkaku/${USER}/Brewfile
+  | sort | uniq )
+  deps=$(echo "$list" | \
+    awk '{if($1 == "brew") print substr($2, 2, length($2) - 2)}' | \
+    xargs -n 1 brew deps | \
+    awk '{print "brew \047"$0"\047"}')
+  (echo "$deps"
+  echo "$list")
+}
+
+if [ $1 = "save" ]; then
+  if [ -f ~/$I_LIST_PATH ]; then
+  (brew bundle --file=- dump
+  get_installed_formula) \
+  | sort | uniq -u > ~/Brewfile
+  cat ~/Brewfile
   fi
   exit;
-fi
-
-if [ $1 = "new" ] && [ $2 ]; then
-  mkdir -p ~/.inkaku/${USER}
-  mkdir -p ~/.inkaku/${USER}/$2
-  touch ~/.inkaku/${USER}/$2/.zshrc
-  touch ~/.inkaku/${USER}/$2/Brewfile
-  echo "#!/bin/sh" > ~/.inkaku/${USER}/$2/install
 fi
