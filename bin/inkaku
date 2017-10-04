@@ -57,15 +57,15 @@ get_installed_formula () {
     xargs -n 1 brew deps | \
     awk '{print "brew \047"$0"\047"}')
   (echo "$deps"
-  echo "$list")
+  echo "$list") | sed -e "s/'/\"/g"
 }
 
 if [ $1 = "save" ]; then
   if [ -f ~/$I_LIST_PATH ]; then
-  (brew bundle --file=- dump
-  get_installed_formula) \
-  | sort | uniq -u > ~/Brewfile
-  cat ~/Brewfile
+    (brew bundle --file=- dump
+    get_installed_formula) \
+    | sort | uniq -u > ~/Brewfile
+    cat ~/Brewfile
   fi
   exit;
 fi
